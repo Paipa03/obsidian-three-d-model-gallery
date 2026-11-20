@@ -1,5 +1,5 @@
 /*
- * 3D Model Gallery 1.0.1 - MIT License
+ * 3D Model Gallery 1.0.2 - MIT License
  * https://github.com/Paipa03/obsidian-three-d-model-gallery
  *
  * Rendering: three.js (MIT, three.js authors), bundled below with the loaders it needs.
@@ -111222,10 +111222,12 @@ class ModelBlock extends MarkdownRenderChild {
     }
     this.setStatus(t("Loading model…"));
     this.io = new IntersectionObserver((entries) => {
-      this.visible = entries.some((e) => e.isIntersecting);
+      // Collapsed containers (e.g. a closed Editor Enhancer toggle list) clip the block to nothing:
+      // only a block with a real on-screen area counts as visible, so its model is not loaded.
+      this.visible = entries.some((e) => e.isIntersecting && e.intersectionRect.width > 0 && e.intersectionRect.height > 0);
       if (this.visible && !this.started) this.start().catch((error) => this.fail(error));
       else if (this.visible) this.kick();
-    }, { rootMargin: "200px" });
+    }, { rootMargin: "200px", threshold: [0, 0.01] });
     this.io.observe(root);
   }
   buildBar() {

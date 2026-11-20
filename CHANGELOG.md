@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.2
+
+- A viewer inside a collapsed toggle list (Editor Enhancer) or any other folded container no longer loads its model until it is shown.
+
 ## 1.0.1
 
 - Plugin ID is now `three-d-model-gallery` (community directory rules: letters and hyphens only).

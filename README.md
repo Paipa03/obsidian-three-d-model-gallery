@@ -14,6 +14,7 @@
 - **Screenshots** at 1–4× the on-screen size, transparent when the background is. Saved where you choose (or next to the model), and copied to the clipboard.
 - **Remembers each view**: camera angle, chosen model, clip, loop, skeleton — still there after closing the note or restarting Obsidian.
 - **Fast**: every block shares one renderer and parsed models are cached, so reopening a note doesn't reload anything.
+- **Loads only what you can see**: a viewer folded inside a collapsed [Editor Enhancer](https://github.com/Paipa03/obsidian-editor-enhancer) toggle list doesn't load its model until you open the toggle, so notes full of models open without a wait.
 
 Formats: **FBX, glTF / GLB, OBJ (+MTL), STL, PLY, 3DS, DAE, 3MF, AMF**.
 
@@ -71,7 +72,7 @@ Desktop (Windows, macOS, Linux). Importing from your file manager and galleries 
 
 ## Works well with (optional)
 
-- [Editor Enhancer](https://github.com/Paipa03/obsidian-editor-enhancer): drag the whole viewer like any other block.
+- [Editor Enhancer](https://github.com/Paipa03/obsidian-editor-enhancer): drag the whole viewer like any other block, and fold viewers into toggle lists that load only when opened.
 - [Section Blocks](https://github.com/Paipa03/obsidian-section-blocks): dropped models go to a `<note name> media` folder next to the note.
 
 ## Install
