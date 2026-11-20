@@ -1,0 +1,441 @@
+/* 3D Model Gallery */
+.pmv {
+  --pmv-glass-bg: color-mix(in srgb, var(--background-primary) 70%, transparent);
+  --pmv-gap: 8px;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: var(--radius-m, 8px);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
+}
+.pmv-canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  outline: none;
+  cursor: grab;
+}
+.pmv-canvas:active {
+  cursor: grabbing;
+}
+.pmv-status {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1em;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: var(--font-ui-small);
+  pointer-events: none;
+}
+.pmv.pmv-busy .pmv-canvas {
+  opacity: 0.55;
+  transition: opacity 120ms ease;
+}
+
+.pmv-ui {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.pmv-ui .pmv-glass,
+.pmv-ui button {
+  pointer-events: auto;
+}
+.pmv-glass {
+  background: var(--pmv-glass-bg);
+  border: 1px solid var(--background-modifier-border);
+  border-radius: var(--radius-m, 8px);
+  color: var(--text-normal);
+}
+
+.pmv button.pmv-ib {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  height: auto;
+  padding: 5px;
+  margin: 0;
+  border: none;
+  box-shadow: none;
+  background: transparent;
+  border-radius: var(--radius-s, 4px);
+  color: var(--text-faint);
+  cursor: pointer;
+}
+.pmv button.pmv-ib svg {
+  width: 15px;
+  height: 15px;
+}
+.pmv button.pmv-ib:hover {
+  color: var(--text-normal);
+  background: var(--background-modifier-hover);
+}
+.pmv button.pmv-ib.is-on,
+.pmv button.pmv-ib.pmv-ib-plain {
+  color: var(--text-normal);
+}
+.pmv button.pmv-ib.is-on {
+  color: var(--text-accent);
+}
+.pmv button.pmv-ib.is-on:hover {
+  color: var(--text-accent-hover, var(--text-accent));
+}
+
+.pmv-left {
+  position: absolute;
+  top: var(--pmv-gap);
+  left: var(--pmv-gap);
+  bottom: var(--pmv-gap);
+  max-width: calc(100% - 2 * var(--pmv-gap));
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  pointer-events: none;
+}
+.pmv-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  max-width: 100%;
+  flex: none;
+}
+.pmv button.pmv-gallery-toggle {
+  flex: none;
+  padding: 6px;
+  border: 1px solid var(--background-modifier-border);
+  background: var(--pmv-glass-bg);
+  border-radius: var(--radius-m, 8px);
+}
+.pmv button.pmv-gallery-toggle svg {
+  width: 16px;
+  height: 16px;
+}
+.pmv-spacer {
+  flex: 1;
+  min-height: 0;
+}
+.pmv.pmv-gallery-open .pmv-spacer {
+  display: none;
+}
+
+.pmv-info {
+  min-width: 0;
+  padding: 3px 4px 3px 8px;
+  font-size: var(--font-ui-smaller);
+  line-height: 1.5;
+  color: var(--text-muted);
+  opacity: 0.85;
+  transition: opacity 120ms ease;
+}
+.pmv:hover .pmv-info {
+  opacity: 1;
+}
+.pmv-info-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  min-width: 0;
+}
+.pmv-info-sub {
+  padding-right: 4px;
+}
+.pmv-badge {
+  padding: 0 5px;
+  border-radius: var(--radius-s, 4px);
+  background: var(--background-modifier-hover);
+  color: var(--text-normal);
+  font-weight: var(--font-semibold, 600);
+  font-size: 0.92em;
+  letter-spacing: 0.03em;
+}
+.pmv .pmv-info button.pmv-ib {
+  padding: 2px;
+}
+.pmv .pmv-info button.pmv-ib svg {
+  width: 13px;
+  height: 13px;
+}
+.pmv-info-missing {
+  color: var(--text-warning, var(--text-muted));
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pmv-gallery {
+  flex: 1;
+  min-height: 0;
+  width: 180px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.pmv-gallery-list {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  touch-action: pan-y;
+  padding: 4px;
+}
+.pmv-gallery-empty {
+  padding: 8px;
+  color: var(--text-muted);
+  font-size: var(--font-ui-smaller);
+}
+.pmv-gitem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px;
+  border-radius: var(--radius-s, 4px);
+  cursor: pointer;
+}
+.pmv-gitem:hover {
+  background: var(--background-modifier-hover);
+}
+.pmv-gitem.is-active {
+  background: color-mix(in srgb, var(--interactive-accent) 18%, transparent);
+}
+.pmv-thumb {
+  flex: none;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-s, 4px);
+  background: var(--background-modifier-hover);
+  color: var(--text-faint);
+  overflow: hidden;
+}
+.pmv-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.pmv-gtext {
+  min-width: 0;
+}
+.pmv-gname {
+  font-size: var(--font-ui-smaller);
+  color: var(--text-normal);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.pmv-gitem.is-active .pmv-gname {
+  color: var(--text-accent);
+}
+.pmv-gmeta {
+  font-size: 10px;
+  color: var(--text-faint);
+  letter-spacing: 0.03em;
+}
+
+.pmv-anim {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 1px;
+  padding: 2px;
+}
+.pmv-anim-clipbox {
+  display: flex;
+  align-items: center;
+  gap: 1px;
+}
+.pmv-anim-clipbox.is-off {
+  opacity: 0.45;
+}
+.pmv-clip {
+  position: relative;
+  margin: 0 2px;
+}
+.pmv button.pmv-clip-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  width: auto;
+  height: 24px;
+  margin: 0;
+  padding: 0 4px 0 8px;
+  border: none;
+  box-shadow: none;
+  background: var(--background-modifier-hover);
+  border-radius: var(--radius-s, 4px);
+  color: var(--text-normal);
+  font-size: var(--font-ui-smaller);
+  cursor: pointer;
+}
+.pmv button.pmv-clip-btn:disabled {
+  padding-right: 8px;
+  cursor: default;
+}
+.pmv button.pmv-clip-btn:not(:disabled):hover {
+  background: var(--background-modifier-active-hover, var(--background-modifier-hover));
+}
+.pmv-clip-names {
+  display: grid;
+  justify-items: start;
+  text-align: left;
+  white-space: nowrap;
+}
+.pmv-clip-names > span {
+  grid-area: 1 / 1;
+  visibility: hidden;
+}
+.pmv-clip-names > span.is-current {
+  visibility: visible;
+}
+.pmv-clip-chevron {
+  display: flex;
+  color: var(--text-faint);
+}
+.pmv-clip-chevron svg {
+  width: 12px;
+  height: 12px;
+}
+.pmv-clip-menu {
+  position: absolute;
+  left: -4px;
+  bottom: calc(100% + 8px);
+  min-width: calc(100% + 8px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 4px;
+  background: color-mix(in srgb, var(--background-primary) 88%, transparent);
+  border: 1px solid var(--background-modifier-border);
+  border-radius: var(--radius-m, 8px);
+  box-shadow: var(--shadow-s);
+  pointer-events: auto;
+  z-index: 2;
+}
+.pmv-clip-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px 4px 6px;
+  border-radius: var(--radius-s, 4px);
+  color: var(--text-muted);
+  font-size: var(--font-ui-smaller);
+  white-space: nowrap;
+  cursor: pointer;
+}
+.pmv-clip-item:hover {
+  background: var(--background-modifier-hover);
+  color: var(--text-normal);
+}
+.pmv-clip-item.is-current {
+  color: var(--text-accent);
+}
+.pmv-clip-check {
+  display: flex;
+  visibility: hidden;
+}
+.pmv-clip-item.is-current .pmv-clip-check {
+  visibility: visible;
+}
+.pmv-clip-check svg {
+  width: 12px;
+  height: 12px;
+}
+.pmv-sep {
+  width: 1px;
+  height: 16px;
+  margin: 0 3px;
+  background: var(--background-modifier-border);
+}
+
+.pmv-bar {
+  position: absolute;
+  right: var(--pmv-gap);
+  bottom: var(--pmv-gap);
+  display: flex;
+  gap: 2px;
+  padding: 2px;
+  opacity: 0;
+  transition: opacity 120ms ease;
+}
+.pmv:hover .pmv-bar,
+.pmv-bar:focus-within,
+.is-mobile .pmv-bar {
+  opacity: 1;
+}
+.pmv-bar button.clickable-icon {
+  padding: 4px;
+  width: auto;
+  height: auto;
+}
+.pmv-bar button.clickable-icon svg {
+  width: 15px;
+  height: 15px;
+}
+.pmv-bar .pmv-btn:first-of-type {
+  box-shadow: inset 0 -3px 0 var(--pmv-swatch, transparent);
+}
+.pmv.pmv-transparent .pmv-bar .pmv-btn:first-of-type {
+  box-shadow: none;
+}
+.pmv-color {
+  position: absolute;
+  width: 0;
+  height: 0;
+  padding: 0;
+  border: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.pmv-toast {
+  position: absolute;
+  right: var(--pmv-gap);
+  bottom: 44px;
+  transform: translateY(4px);
+  max-width: calc(100% - 2 * var(--pmv-gap));
+  padding: 4px 12px;
+  font-size: var(--font-ui-smaller);
+  color: var(--text-normal);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 160ms ease, transform 160ms ease;
+}
+.pmv-ui .pmv-toast {
+  pointer-events: none;
+}
+.pmv-toast.is-shown {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.pmv-labels {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.pmv-bone {
+  position: absolute;
+  left: 0;
+  top: 0;
+  padding: 0 4px;
+  border-radius: var(--radius-s, 4px);
+  background: color-mix(in srgb, var(--background-primary) 60%, transparent);
+  color: var(--text-normal);
+  font-size: 10px;
+  line-height: 14px;
+  white-space: nowrap;
+  will-change: transform;
+}
