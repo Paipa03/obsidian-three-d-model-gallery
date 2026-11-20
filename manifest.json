@@ -1,7 +1,7 @@
 {
-  "id": "3d-model-gallery",
+  "id": "three-d-model-gallery",
   "name": "3D Model Gallery",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "minAppVersion": "1.5.0",
   "description": "View 3D models in notes and flip through every model in a folder. Plays animations with skeleton view, studio lighting, transparent or colored background and screenshots. FBX, glTF, OBJ, STL and more.",
   "author": "paipa",

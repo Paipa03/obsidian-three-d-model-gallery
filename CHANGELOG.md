@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.1
+
+- Plugin ID is now `three-d-model-gallery` (community directory rules: letters and hyphens only).
+
 ## 1.0.0
 
 First release.

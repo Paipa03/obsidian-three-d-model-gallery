@@ -2,7 +2,7 @@
 
 **Look at 3D models right inside your notes — flip through every model in a folder and play their animations.**
 
-![Rotating a ghost, switching its animation, showing its skeleton, then flipping to other models in the gallery](https://raw.githubusercontent.com/Paipa03/obsidian-3d-model-gallery/main/docs/demo.gif)
+![Rotating a ghost, switching its animation, showing its skeleton, then flipping to other models in the gallery](https://raw.githubusercontent.com/Paipa03/obsidian-three-d-model-gallery/main/docs/demo.gif)
 
 ## Features
 
@@ -59,7 +59,7 @@ Only `file` is required. Models dropped in from outside the vault also get `sour
 ## For scripts
 
 ```js
-const api = app.plugins.plugins["3d-model-gallery"].api;
+const api = app.plugins.plugins["three-d-model-gallery"].api;
 api.blockText({ file: "Models/ghost.fbx" });          // the Markdown for a block
 await api.insert({ file: "Models/ghost.fbx", line: 3 }); // insert into the active note
 api.viewers();                                         // rendered blocks with stats, clips, screenshot()

@@ -1,6 +1,6 @@
 /*
- * 3D Model Gallery 1.0.0 - MIT License
- * https://github.com/Paipa03/obsidian-3d-model-gallery
+ * 3D Model Gallery 1.0.1 - MIT License
+ * https://github.com/Paipa03/obsidian-three-d-model-gallery
  *
  * Rendering: three.js (MIT, three.js authors), bundled below with the loaders it needs.
  */
@@ -112545,7 +112545,7 @@ class ModelGalleryPlugin extends Plugin {
     evt.stopImmediatePropagation();
   }
 
-  // ---- API: app.plugins.plugins["3d-model-gallery"].api ----
+  // ---- API: app.plugins.plugins["three-d-model-gallery"].api ----
   buildApi() {
     const plugin = this;
     const activeEditor = () => {
