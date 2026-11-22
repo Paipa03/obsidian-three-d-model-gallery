@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.3
+
+- Holding the mouse wheel (middle button) to pan inside a viewer no longer scrolls the note along with it.
+
 ## 1.0.2
 
 - A viewer inside a collapsed toggle list (Editor Enhancer) or any other folded container no longer loads its model until it is shown.

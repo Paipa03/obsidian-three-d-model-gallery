@@ -1,5 +1,5 @@
 /*
- * 3D Model Gallery 1.0.2 - MIT License
+ * 3D Model Gallery 1.0.3 - MIT License
  * https://github.com/Paipa03/obsidian-three-d-model-gallery
  *
  * Rendering: three.js (MIT, three.js authors), bundled below with the loaders it needs.
@@ -111215,6 +111215,11 @@ class ModelBlock extends MarkdownRenderChild {
     root.setAttr("aria-label", t("Drag: rotate · Wheel: zoom · Right-drag or Shift-drag: pan"));
     for (const type of ["mousedown", "pointerdown", "click", "dblclick", "touchstart"]) {
       this.registerDomEvent(root, type, (e) => e.stopPropagation());
+    }
+    // Middle-button drag pans the model: cancel the browser's middle-click autoscroll
+    // (and middle-click paste / link opening) so the note does not scroll along.
+    for (const type of ["pointerdown", "mousedown", "auxclick"]) {
+      this.registerDomEvent(root, type, (e) => { if (e.button === 1) e.preventDefault(); });
     }
     if (!this.opts.file) {
       this.setStatus(t("No model file in this block."));
